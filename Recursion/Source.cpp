@@ -2,44 +2,29 @@
 
 using namespace std;
 
-int factorial(int fact, int count, int d) {
-	if (count == fact+1)return d;
-	d = d * count;
-	count++;
-	factorial(fact, count, d);
+int factorial(int fact) {
+	if (fact == 0)return 1;
+	return fact * factorial(fact - 1);
 }
 
-int Power(int a,int power, int count, int d) {
-	if (count == power + 1)return d;
-	d = d * a;
-	count++;
-	Power(a, power, count, d);
+double Power(double a,int power) {
+	return power > 0 ? a * Power(a, power - 1) : power < 0 ? 1 / a * Power(a, power + 1) : 1;
 }
 
-void Fibonacci_1(int limit, int d, int past, int count) {
-	int temp;
+void Fibonacci_1(int limit, int d, int past) {
 	if (d >= limit)return;
-	temp = d;
-	d = d + past;
-	past = temp;
-	if (d < limit) cout << d << " ";
-	Fibonacci_1(limit, d, past, count);
+	cout << d << " ";
+	Fibonacci_1(limit, d + past, d);
 }
 
-void Fibonacci_2(int limit, int d, int past, int count) {
-	int temp;
-	if (count == limit-1)return;
-	temp = d;
-	d = d + past;
-	past = temp;
+void Fibonacci_2(int limit, int d, int past) {
+	if (limit == 0)return;
 	cout << d << " ";
-	count++;
-	Fibonacci_2(limit, d, past, count);
+	Fibonacci_2(limit-1, d + past, d);
 }
 
 void main() {
 	int past = 1;
-	int count = 1;
 	int d = 1;
 	int power, limit;
 	int a, c;
@@ -53,21 +38,19 @@ void main() {
 	cout << endl;
 	if (c == 1) {
 		cout << "Factorial" << endl;
-		cout << a << "! = " << factorial(a, count, d);
+		cout << a << "! = " << factorial(a);
 	}
 	if (c == 2) {
 		cout << "Enter power:"; cin >> power;
 		cout << "Power" << endl;
-		cout << a << " ^ " << power << " = " << Power(a, power, count, d);
+		cout << a << " ^ " << power << " = " << Power(a, power);
 	}
 	if (c == 3) {
 		cout << "Fibonacci until number" << endl;
-		cout << "\n" << past << " " << past << " ";
-		Fibonacci_1(a, d, past, count);
+		Fibonacci_1(a, d, past);
 	}
 	if (c == 4) {
 		cout << "Fibonacci certain amount" << endl;
-		cout << "\n" << past << " " << past << " ";
-		Fibonacci_2(a, d, past, count);
+		Fibonacci_2(a, d, past);
 	}
 }
